@@ -1,0 +1,24 @@
+name: Sync Leetcode concurrency
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 2 * * *'
+    - cron: '30 18 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Sync
+        uses: AKASH-DEV-23/leetcode-sync-action@main
+        with:
+          github-token: ${{ github.token }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
+          leetcode-session: ${{ secrets.LEETCODE_SESSION_ID }}
+          destination-folder: DSA
+          verbose: true
+          commit-header: "[commit]"
+          sync-daily-question: true
+          sync-daily-language: java
